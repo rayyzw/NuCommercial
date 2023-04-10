@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int     @id @default(autoincrement())
+  email      String  @unique
+  name       String?
+  password   String?
+  salt       String?
+  resetToken String?
+  token      String?
+  isAdmin    Boolean @default(false)
+}
+
+model Province {
+  id            Int            @id @default(autoincrement())
+  name          String         @unique
+  code          String?
+  propertyTypes PropertyType[]
+  cities        City[]
+}
+
+model City {
+  id         Int      @id @default(autoincrement())
+  provinceId Int
+  province   Province @relation(fields: [provinceId], references: [id])
+  name       String   @unique
+  code       String?
+  areas      Area[]
+}
+
+model Area {
+  id       Int       @id @default(autoincrement())
+  cityId   Int
+  city     City      @relation(fields: [cityId], references: [id])
+  name     String    @unique
+  code     String?
+  subAreas SubArea[]
+}
+
+model SubArea {
+  id         Int        @id @default(autoincrement())
+  areaId     Int
+  area       Area       @relation(fields: [areaId], references: [id])
+  name       String     @unique
+  code       String?
+  properties Property[]
+}
+
+model PropertyType {
+  id         Int        @id @default(autoincrement())
+  provinceId Int
+  province   Province   @relation(fields: [provinceId], references: [id])
+  name       String
+  properties Property[]
+
+  @@unique([provinceId, name])
+}
+
+model Property {
+  id               Int               @id @default(autoincrement())
+  name             String
+  propertyTypeId   Int
+  propertyType     PropertyType      @relation(fields: [propertyTypeId], references: [id])
+  subAreaId        Int
+  subArea          SubArea           @relation(fields: [subAreaId], references: [id])
+  address          String? //地址
+  postalCode       String? //邮编
+  latitude         Float? //纬度
+  longitude        Float? //经度
+  picture          String? //封面图片
+  price            Float? //价格
+  listingType      LINTING_TYPE      @default(SALE) //出售还是出租
+  buildingSize     Float? //建筑面积
+  landSize         Float? //土地面积
+  brochure         String? //宣传册
+  virtualTour      String? //虚拟游览
+  description      String? //描述
+  rent             Float? //租金
+  subjectSpace     Float? //建筑面积 BC: Subject Space, ON: Total Area
+  leasableArea     Float? //可租面积
+  builtYear        Int? //建造年份
+  zoning           String? //用途
+  mlsNumber        String? //MLS编号
+  status           PROPERTY_STATUS   @default(ACTIVE) //状态
+  businessType     String? //商业类型 ---BC only---
+  category         String? //类别 ---ON only---
+  use              String? //用途 ---ON only---
+  propertyRealtors PropertyRealtor[]
+  propertyFiles    PropertyFile[]
+}
+
+model PropertyFile {
+  id         Int       @id @default(autoincrement())
+  propertyId Int
+  property   Property  @relation(fields: [propertyId], references: [id])
+  url        String
+  fileName   String
+  fileSize   Int
+  fileType   FILE_TYPE @default(IMAGE)
+}
+
+model Realtor {
+  id               Int               @id @default(autoincrement())
+  firstName        String
+  lastName         String
+  email            String            @unique
+  phone            String?
+  company          String?
+  propertyRealtors PropertyRealtor[]
+}
+
+model PropertyRealtor {
+  id         Int      @id @default(autoincrement())
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+  realtorId  Int
+  realtor    Realtor  @relation(fields: [realtorId], references: [id])
+
+  @@unique([propertyId, realtorId])
+}
+
+enum FILE_TYPE {
+  IMAGE
+  DOC
+}
+
+enum PROPERTY_STATUS {
+  ACTIVE
+  SOLD
+  LEASED
+  EXPIRED
+  WITHDRAWN
+}
+
+enum LINTING_TYPE {
+  SALE
+  LEASE
+}
