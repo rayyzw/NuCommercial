@@ -1,0 +1,83 @@
+.row {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 38px;
+  width: 100%;
+}
+
+.title {
+  font-size: 30px;
+}
+
+.flexWraper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 10px auto;
+}
+
+.paper {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  gap: 10px;
+}
+
+.image {
+  width: 270px;
+  height: 200px;
+  object-fit: fill;
+  border-radius: 5px;
+}
+
+.label {
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.address {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1053A3;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: #344584;
+  color: #ffffff;
+  padding: 30px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.logo {
+  background-image: url(../../public/coloredLogo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+}

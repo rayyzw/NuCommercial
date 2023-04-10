@@ -1,0 +1,23 @@
+.container {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.form {
+  background-color: #DBDBDB;
+  border-radius: 5px;
+  padding: 20px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 400;
+}

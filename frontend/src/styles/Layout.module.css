@@ -1,0 +1,13 @@
+.root {
+  background-color: #fefefe;
+  color: #494949;
+  margin: auto;
+  width: 1440px;
+  position: relative;
+}
+
+.children {
+  width: 1440px;
+  margin: 10px auto;
+}
+
