@@ -79,7 +79,7 @@ model Property {
   longitude        Float? //经度
   picture          String? //封面图片
   price            Float? //价格
-  listingType      LINTING_TYPE      @default(SALE) //出售还是出租
+  listingType      LISTING_TYPE      @default(SALE) //出售还是出租
   buildingSize     Float? //建筑面积
   landSize         Float? //土地面积
   brochure         String? //宣传册
@@ -142,7 +142,7 @@ enum PROPERTY_STATUS {
   WITHDRAWN
 }
 
-enum LINTING_TYPE {
+enum LISTING_TYPE {
   SALE
   LEASE
 }
